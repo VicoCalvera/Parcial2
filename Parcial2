@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Estructura para almacenar información del estudiante
+struct Estudiante {
+    string nombre;
+    int codigo;
+    float notas[3];
+};
+
+// Función para calcular el promedio de las notas de un estudiante
+float promedio(Estudiante est) {
+    float sum = 0;
+    for (int i = 0; i < 3; i++) {
+        sum += est.notas[i];
+    }
+    return sum / 3;
+}
+
+int main() {
+    // Crear tres estudiantes
+    Estudiante estudiantes[3];
+    estudiantes[0].nombre = "Estudiante 1";
+    estudiantes[0].codigo = 1;
+    estudiantes[1].nombre = "Estudiante 2";
+    estudiantes[1].codigo = 2;
+    estudiantes[2].nombre = "Estudiante 3";
+    estudiantes[2].codigo = 3;
+
+    int opcion;
+    do {
+        // Menú
+        cout << "Seleccione una opción:" << endl;
+        cout << "1. Profesor" << endl;
+        cout << "2. Estudiante" << endl;
+        cout << "0. Salir" << endl;
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                // Solicitar notas al profesor para cada estudiante
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        cout << "Ingrese la nota " << j+1 << " para " << estudiantes[i].nombre << ": ";
+                        cin >> estudiantes[i].notas[j];
+                    }
+                }
+                break;
+            case 2:
+                //  El código de los estudiantes será 1, 2, 3
+                int codigo_estudiante;
+                cout << "Ingrese su código de estudiante: ";
+                cin >> codigo_estudiante;
+                bool encontrado = false;
+                for (int i = 0; i < 3; i++) {
+                    if (estudiantes[i].codigo == codigo_estudiante) {
+                        encontrado = true;
+                        cout << "El promedio de " << estudiantes[i].nombre << " es " << promedio(estudiantes[i]) << endl;
+                    }
+                }
+                if (!encontrado) {
+                    cout << "Código de estudiante no encontrado." << endl;
+                }
+                break;
+            
+                // Salir del programa
+                break;
+            
+                cout << "Opción inválida. Intente nuevamente." << endl;
+                break;
+        }
+    } while (opcion != 0);
+
+    return 0;
+}
